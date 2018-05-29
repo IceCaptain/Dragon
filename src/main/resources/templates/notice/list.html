@@ -1,0 +1,37 @@
+<meta charset="UTF-8"></meta>
+<div id="n">
+	<div class="data_list">
+		<div class="data_list_title">
+			<img src="/static/images/list_icon.png"/>
+			通知列表
+		</div>
+		<div>
+			<table class="table">
+		    	<thead>
+		        	<tr>
+		        		<th>序号</th>
+		            	<th>通知标题</th>
+		            	<th>发布时间</th>
+		      		</tr>
+		        </thead>
+		        <tbody>
+	        		<tr th:each="notice,noticeStat:${noticeList}">
+		        		<th scope="row" th:text="${noticeStat.index+1}"></th>
+		        		<td>
+		        			<a th:href="'/notice/'+${notice.id}" th:title="${notice.title}" th:text="${notice.title}"></a>
+		        		</td>
+		        		<td>
+		        			<font th:text="${#dates.format(notice.releaseDate,'yyyy-MM-dd HH:mm')}" color="blue"></font>
+		        		</td>
+		        	</tr>
+	    		</tbody>
+	    	</table>
+		</div>
+	</div>
+	<div>
+		<nav>
+			<ul class="pagination" th:utext="${pageCode}">
+			</ul>
+		</nav>
+	</div>
+</div>

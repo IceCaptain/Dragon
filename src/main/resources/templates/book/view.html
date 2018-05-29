@@ -1,0 +1,93 @@
+<meta charset="UTF-8"></meta>
+<div id="b">
+	<div class="data_list">
+		<div class="data_list_title">
+			<img src="/static/images/view_icon.png"/>
+			图书详细信息
+		</div>
+		<div class="book_title">
+			<h3><strong th:text="'《'+${book.name}+'》'"></strong></h3>
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<div class="book_image">
+					<div style="text-align: right">
+						<div th:if="${book.imageName}!=null and ${book.imageName}!=''">
+							<img class="bookImage" th:src="'/static/bookImage/'+${book.imageName}" style="width: 140px;height: 198px;"/>
+						</div>
+						<div th:if="${book.imageName}==null or ${book.imageName}==''">
+							<img class="bookImage" src="/static/images/bookNoImage.jpg" style="width: 140px;height: 198px;"/>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-8">
+				<div class="book_info">
+					<table>
+						<tr>
+							<td><label>作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;者：</label></td>
+							<td th:text="${book.author}"></td>
+						</tr>
+						<tr>
+							<td><label>出&nbsp;&nbsp;&nbsp;版&nbsp;&nbsp;&nbsp;社：</label></td>
+							<td th:text="${book.publisher}"></td>
+						</tr>
+						<tr>
+							<td><label>借&nbsp;阅&nbsp;状&nbsp;态：</label></td>
+							<td>
+								<div th:if="${book.lendDate}!=null">已借阅</div>
+								<div th:if="${book.lendDate}==null">未借阅</div>
+							</td>
+						</tr>
+						<tr>
+							<td><label>预&nbsp;约&nbsp;人&nbsp;数：</label></td>
+							<td>
+								<div th:if="${book.reservation_count}!=null"><div th:text="${book.reservation_count}"></div></div>
+								<div th:if="${book.reservation_count}==null">暂无</div>
+							</td>
+						</tr>
+						<tr>
+							<td><label>可&nbsp;&nbsp;&nbsp;操&nbsp;&nbsp;&nbsp;作：</label></td>
+							<td>
+								<div th:if="${book.lendDate}==null"><a th:href="'javascript:bookLend('+${book.id}+')'">借阅</a></div>
+								<div th:if="${book.lendDate}!=null"><a th:href="'javascript:bookReserve('+${book.id}+')'">预约</a></div>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="book_content">
+			<div style="float:left">
+				<label><strong>简介：</strong></label>&nbsp;&nbsp;
+			</div>
+			<div class="content" th:text="${book.content}"></div>
+		</div>
+		<div class="book_type">
+			<label><strong>图书类别：</strong></label>&nbsp;&nbsp;
+			<code th:text="${book.bookType.name}"></code>
+		</div>
+	</div>
+	
+	<div class="data_list">
+		<div class="data_list_title">
+			<img src="/static/images/guess_icon.png" />
+			猜你喜欢
+		</div>
+		<div class="datas rImageDatas">
+			<ul class="imageUl">
+				<li class="imageLi" th:each="book:${randomBookList}">
+			  	  	<a target="_blank" th:href="'/book/'+${book.id}" th:title="${book.name}">
+			  	  		<div th:if="${book.imageName}!=null and ${book.imageName}!=''">
+							<img class="indexBook" th:src="'/static/bookImage/'+${book.imageName}" />
+						</div>
+						<div th:if="${book.imageName}==null or ${book.imageName}==''">
+							<img class="indexBook" src="/static/images/bookNoImage.jpg" />
+						</div>
+			  	 	 	<p th:text="${book.name}"></p>
+			  	  	</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>

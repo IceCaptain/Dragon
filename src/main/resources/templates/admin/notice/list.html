@@ -1,0 +1,56 @@
+<meta charset="UTF-8"></meta>
+<div id="n">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="row" align="center" style="padding: 3%">
+					<h3>
+						<strong>通&nbsp;知</strong>
+					</h3>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row" style="border: 1px solid #ddd">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>通知标题</th>
+										<th>发布时间</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="notice,noticeStat:${noticeList}">
+										<th scope="row" th:text="${noticeStat.index+1}"></th>
+										<td><a th:href="'/admin/notice/'+${notice.id}"
+											th:title="${notice.title}" th:text="${notice.title}"></a></td>
+										<td><font
+											th:text="${#dates.format(notice.releaseDate,'yyyy-MM-dd HH:mm')}" color="blue"></font>
+										</td>
+										<td>
+											<a th:href="'javascript:noticePublish('+${notice.id}+')'">发布</a>
+											<a th:href="'javascript:noticeDelete('+${notice.id}+')'">删除</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+<!-- 							<div class="col-md-12"> -->
+								<nav>
+									<ul class="pagination" th:utext="${pageCode}">
+									</ul>
+								</nav>
+<!-- 							</div> -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+
+</div>

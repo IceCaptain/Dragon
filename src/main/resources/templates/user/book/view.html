@@ -1,0 +1,88 @@
+<meta charset="UTF-8"></meta>
+<div id="b">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div class="row" align="center" style="padding-top: 2%;padding-bottom:3%">
+					<div id="book_fontName">
+						<h3>
+							<strong th:text="'《'+${book.name}+'》'"></strong>
+						</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-5">
+								<div class="book_image">
+									<div style="text-align: right">
+										<div th:if="${book.imageName}!=null and ${book.imageName}!=''">
+											<img class="bookImage" th:src="'/static/bookImage/'+${book.imageName}" style="width: 140px;height: 198px;"/>
+										</div>
+										<div th:if="${book.imageName}==null or ${book.imageName}==''">
+											<img class="bookImage" src="/static/images/bookNoImage.jpg" style="width: 140px;height: 198px;"/>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-7">
+								<div id="book_tableInfo" class="book_tableInfo">
+									<table>
+										<tr>
+											<td><label>作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;者：</label></td>
+											<td th:text="${book.author}"></td>
+										</tr>
+										<tr>
+											<td><label>出&nbsp;&nbsp;&nbsp;版&nbsp;&nbsp;&nbsp;社：</label></td>
+											<td th:text="${book.publisher}"></td>
+										</tr>
+										<tr>
+											<td><label>图&nbsp;书&nbsp;类&nbsp;别：</label></td>
+											<td th:text="${book.bookType.name}"></td>
+										</tr>
+										<tr>
+											<td><label>借&nbsp;阅&nbsp;状&nbsp;态：</label></td>
+											<td>
+												<div th:if="${book.lendDate}!=null">已借阅</div>
+												<div th:if="${book.lendDate}==null">未借阅</div>
+											</td>
+										</tr>
+										<tr>
+											<td><label th:text="${previousCount}!=null?'等&nbsp;待&nbsp;人&nbsp;数：':'预&nbsp;约&nbsp;人&nbsp;数：'"></label></td>
+											<td>
+												<div th:if="${previousCount}!=null">
+													<div th:text="${previousCount}"></div>
+												</div>
+												<div th:if="${previousCount}==null">
+													<div th:if="${book.reservation_count}!=null"><div th:text="${book.reservation_count}"></div></div>
+													<div th:if="${book.reservation_count}==null">暂无</div>
+												</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div style="float:left">
+								<label><strong>简介：</strong></label>&nbsp;&nbsp;
+							</div>
+							<div id="book_divContent" align="center">
+								<div th:text="${book.content}" class="book_content"></div>
+							</div>
+						</div>
+					</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div id="bookButton" align="center">
+							<button class="btn btn-primary btn-primary" type="button" onClick="javascript:history.back()">返回</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</div>
+	</div>
+</div>

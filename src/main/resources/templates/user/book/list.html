@@ -1,0 +1,68 @@
+<meta charset="UTF-8"></meta>
+<div id="b">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="row" align="center" style="padding: 3%">
+					<h3>
+						<strong>图&nbsp;书</strong>
+					</h3>
+				</div>
+				<div class="row">
+						<div class="row" style="border: 1px solid #ddd">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>图书名称</th>
+										<th>作者</th>
+										<th>出版社</th>
+										<th>图书类别</th>
+										<th>借阅时间</th>
+										<th>归还时间</th>
+										<th>预约人数</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="book,bookStat:${bookList}">
+										<th scope="row" th:text="${bookStat.index+1}"></th>
+										<td>
+											<a th:href="'/user/book/'+${book.id}" th:name="${book.name}" th:text="${book.name}"></a>
+										</td>
+										<td th:text="${book.author}"></td>
+										<td th:text="${book.publisher}"></td>
+										<td th:text="${book.bookType.name}"></td>
+										<td>
+											<div th:if="${book.lendDate}!=null">
+												<font th:text="${#dates.format(book.lendDate,'yyyy-MM-dd HH:mm')}" color="blue"></font>
+											</div>
+											<div th:if="${book.lendDate}==null">暂无</div>
+										</td>
+										<td>
+											<div th:if="${book.returnDate}!=null">
+												<font th:text="${#dates.format(book.returnDate,'yyyy-MM-dd HH:mm')}" color="blue"></font>
+											</div>
+											<div th:if="${book.returnDate}==null">暂无</div>
+										</td>
+										<td>
+											<div th:if="${book.reservation_count}!=null"><div th:text="${book.reservation_count}"></div></div>
+											<div th:if="${book.reservation_count}==null">暂无</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+							<nav>
+								<ul class="pagination" th:utext="${pageCode}">
+								</ul>
+							</nav>
+						</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+</div>

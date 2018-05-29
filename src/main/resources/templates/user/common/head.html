@@ -1,0 +1,11 @@
+<meta charset="UTF-8"></meta>
+<div id="h">
+	<div class="logo">Topgun个人信息管理</div>
+	<input type="hidden" id="userName" th:value="${#httpServletRequest.remoteUser}" />
+	<div class="navigation">
+		<ul>
+			<li>欢迎您！</li>
+			<li th:text="${#httpServletRequest.remoteUser}"></li>
+		</ul>
+	</div>
+</div>

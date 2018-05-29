@@ -1,0 +1,30 @@
+<meta charset="UTF-8"></meta>
+<div id="b">
+	<div class="data_list">
+		<div class="data_list_title">
+			<img src="/static/images/list_icon.png"/>
+			所有图书
+		</div>
+		<div class="datas imageDatas">
+			<ul class="imageUl">
+				<li class="imageLi" th:each="book:${bookList}">
+					<a th:href="'/book/'+${book.id}" target="_blank" th:title="${book.name}">
+						<div th:if="${book.imageName}!=null and ${book.imageName}!=''">
+							<img class="indexBook" th:src="'/static/bookImage/'+${book.imageName}" />
+						</div>
+						<div th:if="${book.imageName}==null or ${book.imageName}==''">
+							<img class="indexBook" src="/static/images/bookNoImage.jpg" />
+						</div>
+						<p th:text="${book.name}"></p>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div>
+		<nav>
+			<ul class="pagination" th:utext="${pageCode}">
+			</ul>
+		</nav>
+	</div>
+</div>

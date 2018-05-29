@@ -1,0 +1,54 @@
+
+<!DOCTYPE html>
+<html lang="en" class="no-js" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+
+        <meta charset="utf-8"/>
+        <title>管理员登录-Topgun后台管理系统</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="/static/css/reset.css"/>
+        <link rel="stylesheet" href="/static/css/supersized.css"/>
+        <link rel="stylesheet" href="/static/css/sty.css"/>
+
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+    </head>
+
+    <body oncontextmenu="return false">
+
+        <div class="page-container">
+            <h1>Login</h1>
+            <form action="/admin/login" method="post">
+				<div>
+					<input type="text" name="userName" class="username" placeholder="Username" autocomplete="off" th:value="${userName}"/>
+				</div>
+                <div>
+					<input type="password" name="password" class="password" placeholder="Password" oncontextmenu="return false" onpaste="return false" th:value="${password}" />
+                </div>
+                <div style="text-align: left;padding:5px;padding-top:10px">
+                	<font th:text="${error}" color="red"></font>
+                </div>
+                <button id="submit" type="submit">Sign in</button>
+            </form>
+            <div class="connect">
+                <p>If we can only encounter each other rather than stay with each other,then I wish we had never encountered.</p>
+				<p style="margin-top:20px;">如果只是遇见，不能停留，不如不遇见。</p>
+            </div>
+        </div>
+
+        <!-- Javascript -->
+		<script src="http://apps.bdimg.com/libs/jquery/1.6.4/jquery.min.js" type="text/javascript"></script>
+        <script src="/static/js/supersized.3.2.7.min.js"></script>
+        <script src="/static/js/supersized-init.js"></script>
+    </body>
+
+</html>
+

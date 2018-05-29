@@ -1,0 +1,138 @@
+<meta charset="UTF-8"></meta>
+<div id="b">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="row" align="center" style="padding: 3%">
+					<h3>
+						<strong>图&nbsp;书</strong>
+					</h3>
+				</div>
+				<div class="row" style="padding:0">
+					<div class="row">
+					<form id="fm" action="/admin/book/list/1" method="post">
+						<ul class="searchBook">
+							<li>
+								<label class="label">图书名称：</label>
+								<input type="text" class="adminBookInput form-control" id="s_name" name="name" th:value="${s_book.name}" onkeydown="if(event.keyCode==13) search()"/>
+							</li>
+							<li>
+								<label class="label">作者：</label>
+								<input type="text" class="adminBookInput form-control" id="s_author" name="author" th:value="${s_book.author}" onkeydown="if(event.keyCode==13) search()"/>
+							</li>
+							<li>
+								<label class="label">出版社：</label>
+								<input type="text" class="adminBookInput form-control" id="s_publisher" name="publisher" th:value="${s_book.publisher}" onkeydown="if(event.keyCode==13) search()"/>
+							</li>
+							<li>
+								<label class="label">借阅用户：</label>
+								<input type="text" class="adminBookInput form-control" id="s_user" th:name="user.userName" th:value="${s_book.user}?${s_book.user.userName}:''"  onkeydown="if(event.keyCode==13) search()"/>
+							</li>
+							<li>
+								<label class="label">借阅状态：</label>
+								<select id="s_flag" name="flag">
+									<option value="">请选择</option> 
+									<div th:if="${flag}==null">
+										<option value="1">已借阅</option>
+										<option value="0">未借阅</option>
+									</div>
+									<div th:if="${flag}!=null and ${flag}==1">
+										<option value="1" selected="selected">已借阅</option>
+										<option value="0">未借阅</option>
+									</div>
+									<div th:if="${flag}!=null and ${flag}==0">
+										<option value="1">已借阅</option>
+										<option value="0" selected="selected">未借阅</option>
+									</div>
+								</select>
+							</li>
+							<li>
+								<label class="label">图书类别：</label>
+								<select id="s_bookType" name="bookType.id">
+									<option value="">请选择</option>
+									<div  th:each="bookType:${application.bookTypeList}">
+										<div th:if="${s_book.bookType}!=null and ${bookType.id}==${s_book.bookType.id}">
+											<option th:value="${bookType.id}" th:text="${bookType.name}" selected="selected"></option>
+										</div>
+										<div th:if="${s_book.bookType}==null or ${bookType.id}!=${s_book.bookType.id}">
+											<option th:value="${bookType.id}" th:text="${bookType.name}"></option>
+										</div>
+									</div>
+								</select>
+							</li>
+						</ul>
+						<div style="float:right">
+							<a href="javascript:search()">搜索</a>
+							<a href="javascript:resetBookSearch()">清空</a>
+						</div>
+					</form>
+					</div>
+				</div>
+				<div class="row">
+						<div class="row" style="border: 1px solid #ddd">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>图书名称</th>
+										<th>作者</th>
+										<th>出版社</th>
+										<th>图书类别</th>
+										<th>借阅用户</th>
+										<th>借阅时间</th>
+										<th>归还时间</th>
+										<th>预约人数</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="book,bookStat:${bookList}">
+										<th scope="row" th:text="${bookStat.index+1}"></th>
+										<td>
+											<a th:href="'/admin/book/'+${book.id}" th:name="${book.name}" th:text="${book.name}"></a>
+										</td>
+										<td th:text="${book.author}"></td>
+										<td th:text="${book.publisher}"></td>
+										<td th:text="${book.bookType.name}"></td>
+										<td>
+											<div th:if="${book.user}!=null"><div th:text="${book.user.userName}"></div></div>
+											<div th:if="${book.user}==null">暂无</div>
+										</td>
+										<td>
+											<div th:if="${book.lendDate}!=null">
+												<font th:text="${#dates.format(book.lendDate,'yyyy-MM-dd HH:mm')}" color="blue"></font>
+											</div>
+											<div th:if="${book.lendDate}==null">暂无</div>
+										</td>
+										<td>
+											<div th:if="${book.returnDate}!=null">
+												<font th:text="${#dates.format(book.returnDate,'yyyy-MM-dd HH:mm')}" color="blue"></font>
+											</div>
+											<div th:if="${book.returnDate}==null">暂无</div>
+										</td>
+										<td>
+											<div th:if="${book.reservation_count}!=null"><div th:text="${book.reservation_count}"></div></div>
+											<div th:if="${book.reservation_count}==null">暂无</div>
+										</td>
+										<td>
+											<a th:href="'javascript:bookReturn('+${book.id}+')'">归还</a>
+											<a th:href="'javascript:bookDelete('+${book.id}+')'">删除</a>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+							<nav>
+								<ul class="pagination" th:utext="${pageCode}">
+								</ul>
+							</nav>
+						</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title th:text="${title}+'-Topgun后台管理系统'">Insert title here</title>
+<link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.min.css" />
+<link type="text/css" rel="stylesheet" href="/static/css/style.css" />
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/menu.js"></script>
+<script type="text/javascript" src="/static/js/jq_dialog.js"></script>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		
+	window.onload=function(){
+		 $("#modifyPwd").jqueryDialog({title:"修改密码",txt: '123',callback:function(res){
+		        console.log(res);
+		 }});
+	}
+	
+	function noticePublish(noticeId){
+		if (confirm("所有激活用户邮箱会接受到发布的通知，您确定发布吗？")) {
+			$.post("/admin/notice/publish",{id : noticeId},function(result) {
+				if (result.success) {
+					alert(result.success);
+					window.location.href = "/admin/notice/list/1";
+				}
+			},"json");
+		}
+	}
+		
+	function noticeDelete(noticeId) {
+		if (confirm("您确定删除这条通知吗？")) {
+			$.post("/admin/notice/delete",{id : noticeId},function(result) {
+				if (result.success) {
+					alert(result.success);
+					window.location.href = "/admin/notice/list/1";
+				}
+			},"json");
+		}
+	}
+	
+	function noticeEdit(){
+		$("#notice_fontTitle").css("display","none");
+		$("#notice_textTitle").css("display","block");
+		$("#notice_divContent").css("display","none");
+		$("#notice_textareaContent").css("display","block");
+		$("#save").removeAttr("disabled");
+	}
+	
+	function checkNoticeForm() {
+		var title = $("#title").val();
+		if (title == null || title == "") {
+			$("#titleError").html("通知标题不能为空！");
+			return false;
+		} else {
+			$("#titleError").html("");
+			return true;
+		}
+	}
+	
+	function bookEdit(){
+		var bookTypeId=$("#bookTypeId").val();
+		$("#book_fontName").css("display","none");
+		$("#book_textName").css("display","block");
+		$("#book_tableInfo").css("display","none");
+		$("#book_textInfo").css("display","block");
+		$("#book_divContent").css("display","none");
+		$("#book_textareaContent").css("display","block");
+		$("#save").removeAttr("disabled");
+		$.post("/admin/book/bookTypeList",{bookTypeId:bookTypeId},function(result){
+			if(result.success){
+				var data=result.data;
+				for(var i =0; i<data.length; i++){
+					if(data[i].id==result.bookTypeId){
+						$("#bookType").append("<option value='"+data[i].id+"' selected='selected'>" + data[i].name+ "</option>");
+					}else{
+						$("#bookType").append("<option value='"+data[i].id+"'>" + data[i].name+ "</option>");
+					}
+				}
+			}
+		},"json");
+	}
+	
+	function checkBookForm() {
+		var name = $("#name").val();
+		var ahthor = $("#ahthor").val();
+		var publisher = $("#publisher").val();
+		if (name == null || name == "") {
+			$("#error").html("图书名称不能为空！");
+			return false;
+		}else if(ahthor == null || ahthor == ""){
+			$("#error").html("图书作者不能为空！");
+			return false;
+		}else if(publisher == null || publisher == ""){
+			$("#error").html("图书出版社不能为空！");
+			return false;
+		}else {
+			$("#error").html("");
+			return true;
+		}
+	}
+	
+	function bookTypeEdit(){
+		$("#showoName").css("display","none");
+		$("#editName").css("display","block");
+		$("#showoOrderNo").css("display","none");
+		$("#editOrderNo").css("display","block");
+		$("#save").removeAttr("disabled");
+	}
+	
+	function checkBookTypeForm() {
+// 		var re = "/^[0-9]+.?[0-9]*$/"; 
+		var name = $("#name").val();
+		var orderNo = $("#orderNo").val();
+		if (name == null || name == "") {
+			$("#error").html("类别名称不能为空！");
+			return false;
+		}else if(orderNo == null || orderNo == ""){
+			$("#error").html("排序序号不能为空！");
+			return false;
+		}
+// 		else if((!re.test(orderNo)){
+// 			$("#error").html("排序序号请输入数字！");
+// 			return false;
+// 		}
+		else {
+			$("#error").html("");
+			return true;
+		}
+	}
+	
+	function bookDelete(bookId){
+		if (confirm("您确定删除这本图书吗？")) {
+			$.post("/admin/book/delete",{id : bookId},function(result) {
+				if (result.success) {
+					alert(result.success);
+					window.location.href = "/admin/book/list/1";
+				}else{
+					alert(result.error);
+				}
+			},"json");
+		}
+	}
+	
+	function bookReturn(bookId){
+		if (confirm("您确定归还这本图书吗？")) {
+			$.post("/admin/book/return",{id : bookId},function(result) {
+				if (result.success) {
+					alert(result.success);
+					window.location.href = "/admin/book/list/1";
+					if(result.userId){
+						alert("已经为此书第一预约人借阅！");
+						window.location.href = "/admin/book/lend?bookId="+bookId+"&userId="+result.userId;
+					}
+				}else{
+					alert(result.error);
+				}
+			},"json");
+		}
+	}
+	
+	function resetBookSearch(){
+		$(".adminBookInput").val("");
+		$("#s_flag").val("");
+		$("#s_bookType").val("");
+	}
+	
+	function search(){
+		$("#fm").submit();
+	}
+	
+	function bookTypeDelete(bookTypeId){
+		if (confirm("您确定删除这条图书类别吗？")) {
+			$.post("/admin/bookType/delete",{id : bookTypeId},function(result) {
+				if (result.success) {
+					alert(result.success);
+					window.location.href = "/admin/bookType/list/1";
+				}else{
+					alert(result.error);
+				}
+			},"json");
+		}
+	}
+	
+	function systemRefresh(){
+		$.post("/admin/refresh",{},function(result){
+			if(result.success){
+				alert(result.success);
+			}
+		},"json");
+	}
+	
+	function checkModifyPwd(){
+		var adminId=$("#adminId").val();
+		var oldPassword=$("#oldPassword").val();
+		var newPassword=$("#newPassword").val();
+		var newPassword2=$("#newPassword2").val();
+		if (oldPassword == null || oldPassword == "") {
+			$("#error").html("原密码不能为空！");
+			return;
+		}else if(newPassword == null || newPassword == ""){
+			$("#error").html("新密码不能为空！");
+			return;
+		}else if(newPassword2 == null || newPassword2 == ""){
+			$("#error").html("确认密码不能为空！");
+			return;
+		}else if(newPassword!=newPassword2){
+			$("#error").html("两次密码不相同！");
+			return;
+		}else{
+			$.post("/admin/modifyPwd",{id:adminId,oldPassword:oldPassword,newPassword:newPassword},function(result){
+				if(result.success){
+					$("#oldPassword").val("");
+					$("#newPassword").val("");
+					$("#newPassword2").val("");
+					alert(result.success);
+					$("#error").html("");
+				}else{
+					$("#error").html(result.error);
+				}
+			},"json");
+		}
+	}
+	
+	function logout(){
+		if (confirm("您确定要退出吗？")) {
+			$.post("/admin/logout",{},function(result) {
+				if (result.success) {
+					window.location.href = "/admin";
+				}
+			},"json");
+		}
+	}
+	
+	function userAudit(userId){
+		if (confirm("您确定激活此用户吗？")) {
+			$.post("/admin/user/audit",{id:userId},function(result) {
+				if (result.success) {
+					alert(result.success);
+				}else{
+					alert(result.error);
+				}
+			},"json");
+		}
+	}
+	
+	function userDelete(userId){
+		if (confirm("您确定删除此用户吗？")) {
+			$.post("/admin/user/delete",{id:userId},function(result) {
+				if (result.success) {
+					alert(result.success);
+					window.location.href="/admin/user/list/1";
+				}else{
+					alert(result.error);
+				}
+			},"json");
+		}
+	}
+	/*]]>*/
+</script>
+</head>
+<body>
+	<div class="top"></div>
+	<div id="header">
+		<div th:include="/admin/common/head::#h"></div>
+	</div>
+	<div id="content">
+		<div th:include="/admin/common/menu::#m"></div>
+		<div class="m-right">
+			<div class="right-nav">
+				<div th:text="'当前位置：'+${menuTitle}"></div>
+			</div>
+			<div class="main">
+				<div th:include="${mainPage}::${mainPageKey}"></div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom"></div>
+	<div th:include="/admin/common/foot::#f"></div>
+	<script>navList(12);</script>
+</body>
+</html>

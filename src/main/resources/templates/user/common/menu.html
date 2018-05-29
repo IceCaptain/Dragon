@@ -1,0 +1,12 @@
+<meta charset="UTF-8"></meta>
+<div id="m">
+	<div class="myTab">
+		<ul class="nav nav-pills nav-stacked">
+			<li><a href="/user/">主&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;页</a></li>
+			<li><a th:href="'/user/message?userName='+${#httpServletRequest.remoteUser}">个人信息</a></li>
+			<li><a th:href="'/user/list/1?userName='+${#httpServletRequest.remoteUser}">我的图书 </a></li>
+			<li><a th:href="'/user/reservation/1?userName='+${#httpServletRequest.remoteUser}">我的预约</a></li>
+			<li><a href="/user/preModifyPwd">修改密码</a></li>
+		</ul>
+	</div>
+</div>

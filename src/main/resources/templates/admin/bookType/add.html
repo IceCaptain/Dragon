@@ -1,0 +1,56 @@
+<meta charset="UTF-8"></meta>
+<div id="b">
+	<div class="container">
+	<form action="/admin/bookType/save" method="post" onSubmit="return checkBookTypeForm()">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-12">
+								<div id="bookType_textInfo" class="row bookType_textInfo" style="padding-top:10%;">
+									<div class="col-md-1"></div>
+									<div class="col-md-10">
+										<div class="row info">
+											<div class="col-md-6">
+												<label>类&nbsp;别&nbsp;名&nbsp;称：</label>
+											</div>
+											<div class="col-md-6">
+												<input type="text" class="form-control" id="name" name="name"/>
+											</div>
+										</div>
+										<div class="row info">
+											<div class="col-md-6">
+												<label>排&nbsp;序&nbsp;序&nbsp;号：</label>
+							 				</div>
+											<div class="col-md-6">
+												<input type="text" class="form-control" id="orderNo" name="orderNo"/>
+											</div>
+										</div>
+										<div class="row info">
+											<div class="col-md-6"></div>
+											<div class="col-md-6" style="padding-top:5px">
+												<font id="error" color="red" size="2%"></font>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-1"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div id="bookTypeButton" align="center">
+							<button class="btn btn-primary btn-primary" id="save" type="submit">保存</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</div>
+	</form>
+	</div>
+</div>

@@ -1,0 +1,62 @@
+<meta charset="UTF-8"></meta>
+	<div id="p">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-12">
+					<form action="/user/messageEdit" method="post" onsubmit="return checkMessageForm()">
+						<div class="row">
+							<div class="messageEdit">
+								<a href="javascript:userMessageEdit()">编辑资料</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="message_info" align="center">
+								<table>
+									<tr>
+										<td><label>用&nbsp;&nbsp;&nbsp;户&nbsp;&nbsp;&nbsp;名：</label></td>
+										<td th:text="${user.userName}"></td>
+									</tr>
+									<tr>
+										<td><label>真&nbsp;实&nbsp;姓&nbsp;名：</label></td>
+										<td>
+											<div id="showTrueName" th:text="${user.trueName}"></div>
+											<div id="editTrueName" style="display: none">
+												<input type="text" class="form-control" id="trueName" name="trueName" th:value="${user.trueName }" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td><label>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：</label></td>
+										<td>
+											<div id="showEmail" th:text="${user.email}"></div>
+											<div id="editEmail" style="display: none">
+												<input type="text" class="form-control" id="email" name="email" th:value="${user.email }" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="hidden" name="id" th:value="${user.id}" />
+										</td>
+										<td>
+											<font id="error" color="red" size="2%"></font>
+										</td>
+									</tr>
+								</table>
+								
+							</div>
+						</div>
+						<div class="row">
+							<div id="messageButton" align="center">
+								<button class="btn btn-primary btn-primary" id="save" type="submit" disabled="disabled">保存</button>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+	</div>

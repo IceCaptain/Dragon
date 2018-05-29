@@ -1,0 +1,42 @@
+<meta charset="UTF-8"></meta>
+<div id="n">
+	<div class="container">
+	<form action="/admin/notice/save" method="post" onSubmit="return checkNoticeForm()">
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="row" align="center" style="padding: 3%;padding-bottom:1%">
+					<div>
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1" style="height: 35px"><span><label>通&nbsp;知&nbsp;标&nbsp;题：</label></span></span>
+							<input type="text" class="form-control" id="title"
+										name="title"
+										style="width: 100%; height: 35px"/>
+						</div>
+					</div>
+					<div align="center">
+						<div style="padding-top:5px">
+							<font id="titleError" color="red" size="2%"></font>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div>
+								<textarea name="content" style="width:100%;height:350px;"></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div align="center" style="padding-top: 2%">
+						<button class="btn btn-primary btn-primary" id="save" type="submit">保存</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</form>
+	</div>
+</div>

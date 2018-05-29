@@ -1,0 +1,144 @@
+<meta charset="UTF-8"></meta>
+<div id="b">
+	<div class="container">
+	<form action="/admin/book/save" method="post" onSubmit="return checkBookForm()" enctype="multipart/form-data">
+		<div class="row">
+			<div class="col-md-3"></div>
+			<div class="col-md-6">
+				<div class="row" align="center" style="padding-top: 2%;padding-bottom:3%">
+					<div id="book_fontName">
+						<h3>
+							<strong th:text="'《'+${book.name}+'》'"></strong>
+						</h3>
+					</div>
+					<div id="book_textName" style="display:none">
+						<div class="input-group">
+							<span class="input-group-addon" id="basic-addon1" style="height: 35px"><span><label>图&nbsp;书&nbsp;标&nbsp;题：</label></span></span>
+							<input type="text" class="form-control" id="name"
+										name="name" th:value="${book.name }"
+										style="width: 70%; height: 35px"/>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-5">
+								<div class="book_image">
+									<div style="text-align: right">
+										<div th:if="${book.imageName}!=null and ${book.imageName}!=''">
+											<img class="bookImage" th:src="'/static/bookImage/'+${book.imageName}" style="width: 140px;height: 198px;"/>
+										</div>
+										<div th:if="${book.imageName}==null or ${book.imageName}==''">
+											<img class="bookImage" src="/static/images/bookNoImage.jpg" style="width: 140px;height: 198px;"/>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-7">
+								<div id="book_tableInfo" class="book_tableInfo">
+									<table>
+										<tr>
+											<td><label>作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;者：</label></td>
+											<td th:text="${book.author}"></td>
+										</tr>
+										<tr>
+											<td><label>出&nbsp;&nbsp;&nbsp;版&nbsp;&nbsp;&nbsp;社：</label></td>
+											<td th:text="${book.publisher}"></td>
+										</tr>
+										<tr>
+											<td><label>图&nbsp;书&nbsp;类&nbsp;别：</label></td>
+											<td th:text="${book.bookType.name}"></td>
+										</tr>
+										<tr>
+											<td><label>借&nbsp;阅&nbsp;状&nbsp;态：</label></td>
+											<td>
+												<div th:if="${book.lendDate}!=null">已借阅</div>
+												<div th:if="${book.lendDate}==null">未借阅</div>
+											</td>
+										</tr>
+										<tr>
+											<td><label>预&nbsp;约&nbsp;人&nbsp;数：</label></td>
+											<td>
+												<div th:if="${book.reservation_count}!=null"><div th:text="${book.reservation_count}"></div></div>
+												<div th:if="${book.reservation_count}==null">暂无</div>
+											</td>
+										</tr>
+									</table>
+								</div>
+								<div id="book_textInfo" class="row book_textInfo" style="display:none">
+									<div class="col-md-12">
+										<div class="row info">
+											<div class="col-md-4">
+												<label>作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;者：</label>
+											</div>
+											<div class="col-md-8">
+												<input type="text" class="form-control" id="ahthor" name="author" th:value="${book.author }" />
+											</div>
+										</div>
+										<div class="row info">
+											<div class="col-md-4">
+												<label>出&nbsp;&nbsp;&nbsp;版&nbsp;&nbsp;&nbsp;社：</label>
+											</div>
+											<div class="col-md-8">
+												<input type="text" class="form-control" id="publisher" name="publisher" th:value="${book.publisher }"/>
+											</div>
+										</div>
+										<div class="row info">
+											<div class="col-md-4">
+												<label>图&nbsp;书&nbsp;类&nbsp;别：</label>
+											</div>
+											<div class="col-md-8">
+												<input type="hidden" id="bookTypeId" th:value="${book.bookType.id}"/>
+												<select id="bookType" name="bookTypeId"></select>
+											</div>
+										</div>
+										<div>
+											<input type="hidden" name="id" th:value="${book.id}"/>
+											<input type="hidden" name="imageName" th:value="${book.imageName}"/>
+										</div>
+										<div class="row info">
+											<div class="col-md-4">
+												<label>封&nbsp;面&nbsp;图&nbsp;片：</label>
+											</div>
+											<div class="col-md-8">
+												<input type="file" id="imageFile" name="imageFile"/>
+											</div>
+										</div>
+										<div class="row info">
+											<font id="error" color="red" size="2%"></font>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div style="float:left">
+								<label><strong>简介：</strong></label>&nbsp;&nbsp;
+							</div>
+							<div style="float: right;padding-bottom:1%;padding-right:2%">
+								<a href="javascript:bookEdit()">编辑</a>
+							</div>
+							<div id="book_divContent" align="center">
+								<div th:text="${book.content}" class="book_content"></div>
+							</div>
+							<div id="book_textareaContent" style="display: none">
+								<textarea name="content" th:text="${book.content}" style="width:100%;height:200px;"></textarea>
+							</div>
+						</div>
+					</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div id="bookButton" align="center">
+							<button class="btn btn-primary btn-primary" id="save" type="submit" disabled="disabled">保存</button>
+							<button class="btn btn-primary btn-primary" type="button" onClick="javascript:history.back()">返回</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3"></div>
+		</div>
+	</div>
+	</form>
+	</div>
+</div>

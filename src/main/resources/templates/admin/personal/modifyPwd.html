@@ -1,0 +1,51 @@
+<meta charset="UTF-8"></meta>
+	<div id="p">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="message_info modifyPwd" align="center">
+								<table>
+									<tr>
+										<td><label>原&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;码：</label></td>
+										<td>
+											<input type="password" class="form-control" id="oldPassword" />
+										</td>
+									</tr>
+									<tr>
+										<td><label>新&nbsp;&nbsp;&nbsp;密&nbsp;&nbsp;&nbsp;码：</label></td>
+										<td>
+											<input type="password" class="form-control" id="newPassword"/>
+										</td>
+									</tr>
+									<tr>
+										<td><label>确&nbsp;认&nbsp;密&nbsp;码：</label></td>
+										<td>
+											<input type="password" class="form-control" id="newPassword2"/>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="hidden" id="adminId" th:value="${session.currentUser.id}" />
+										</td>
+										<td>
+											<font id="error" color="red" size="2%"></font>
+										</td>
+									</tr>
+								</table>
+								
+							</div>
+						</div>
+						<div class="row">
+							<div id="messageButton" align="center">
+								<button class="btn btn-primary btn-primary" id="save" type="button" onclick="checkModifyPwd()">提交</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+	</div>

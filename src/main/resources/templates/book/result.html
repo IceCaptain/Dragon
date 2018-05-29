@@ -1,0 +1,35 @@
+<meta charset="UTF-8"></meta>
+<div id="b">
+	<div class="data_list">
+		<div class="data_list_title">
+		<img src="/static/images/search_icon.png"/>
+		搜索&nbsp;<font color="red" th:text="${q}"></font>&nbsp;的结果 &nbsp;(总共搜索到&nbsp;<font th:text="${resultTotal }"></font>&nbsp;条记录) </div>
+		
+		<div class="datas search">
+			<div th:if="${resultTotal}==null or ${resultTotal}==0">
+					<div align="center" style="padding-top: 20px">未查询到结果，请换个关键字试试看！</div> 
+			</div>
+			<div th:if="${resultTotal}!=null or ${resultTotal}!=0">
+				<ul>
+					<li th:each="book:${bookList}">
+						<p id="name"><span class="name"><a th:href="'/book/'+${book.id}" th:utext="'《'+${book.name}+'》'" target="_blank"></a></span></p>
+						<p id="info">
+							<span class="author"><label>作者：</label><font th:href="'/book/'+${book.id}" th:utext="${book.author}"></font></span>
+							<span class="publisher"><label>出版社：</label><font th:href="'/book/'+${book.id}" th:utext="${book.publisher}"></font></span>
+						</p>
+						<p id="contenr">
+							<span class="content"><label>简介:</label><font th:utext="${book.content}"></font>...</span>
+						</p>
+					</li>
+				</ul>	
+			</div>
+		</div>
+		
+	</div>
+	<div>
+		<nav>
+			<ul class="pagination" th:utext="${pageCode}">
+			</ul>
+		</nav>
+	</div>
+</div>

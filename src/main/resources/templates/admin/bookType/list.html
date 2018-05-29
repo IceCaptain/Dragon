@@ -1,0 +1,53 @@
+<meta charset="UTF-8"></meta>
+<div id="b">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-md-1"></div>
+			<div class="col-md-10">
+				<div class="row" align="center" style="padding: 3%">
+					<h3>
+						<strong>图&nbsp;书&nbsp;类&nbsp;别</strong>
+					</h3>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row" style="border: 1px solid #ddd">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>类别名称</th>
+										<th>排序序号</th>
+										<th>图书数量</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="bookType,bookTypeStat:${bookTypeList}">
+										<th scope="row" th:text="${bookTypeStat.index+1}"></th>
+										<td><a th:href="'/admin/bookType/'+${bookType.id}"
+											th:title="${bookType.name}" th:text="${bookType.name}"></a></td>
+										<td th:text="${bookType.orderNo}"></td>
+										<td>
+											<font th:text="${bookType.bookCount}" color="blue"></font>
+										</td>
+										<td><a th:href="'javascript:bookTypeDelete('+${bookType.id}+')'">删除</a></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="row">
+							<nav>
+								<ul class="pagination" th:utext="${pageCode}">
+								</ul>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-1"></div>
+		</div>
+	</div>
+
+</div>

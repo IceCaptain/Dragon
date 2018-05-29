@@ -1,0 +1,39 @@
+server:
+  port: 80
+  context-path: /
+
+spring:
+  datasource:
+#    driver-class-name: com.mysql.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/db_topgun2?characterEncoding=UTF-8
+    driver-class-name: org.sqlite.JDBC
+#    url: jdbc:sqlite:C:/Users/zxy96/db_topgun2
+    url: jdbc:sqlite:/usr/local/sqlite/db_topgun2
+#    username: root
+#    password: 123456
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: com.java.dialect.SQLiteDialect
+    show-sql: true
+  thymeleaf:
+    prefix: classpath:/templates
+    cache: false 
+  http:
+    multipart:
+      max-file-size: -1
+      max-request-size: -1
+
+# D://Java EE/topgun/src/main/webapp/static/bookImage/   /usr/local/tomcat/webapps/ROOT/static/bookImage/ 
+imageFilePath: /usr/local/tomcat/webapps/ROOT/static/bookImage/
+
+# /usr/local/bookIndex  D:/bookIndex
+bookIndexDirPath: /usr/local/bookIndex
+
+# 30000 2592000000
+lendTime: 2592000000
+
+# 46800000
+lagTime: 46800000

@@ -1,0 +1,43 @@
+<meta charset="UTF-8"></meta>
+<div id="h">
+	<div class="col-md-4">
+	</div>
+	<div class="col-md-8">
+		<header>
+			<div class="dropdown">
+				<button type="button" class="btn dropdown-toggle" id="dropdownMenu1"
+					data-toggle="dropdown" style="background-color: #0096E6">
+					<span th:text="${#httpServletRequest.remoteUser}"  style="color: #FFFFFF"></span>
+					<span class="caret"></span>
+				</button>
+				<ul class="dropdown-menu" role="menu"
+					aria-labelledby="dropdownMenu1">
+					<li role="presentation">
+						<a role="menuitem" tabindex="-1" href="/user/" target="_blank">个人信息</a>
+					</li>
+<!-- 					<li role="presentation" class="divider"></li> -->
+					<li role="presentation">
+						<a role="menuitem" tabindex="-1" href="javascript:logout()">安全退出</a>
+					</li>
+				</ul>
+			</div>
+			<!-- 			<a href="#"><font size="3">&nbsp;&nbsp;<strong></strong><span th:text="${#httpServletRequest.remoteUser}"></span></font></a> -->
+			<input type="hidden" id="userName" th:value="${#httpServletRequest.remoteUser}" />
+		</header>
+		<div th:if="${application.lendMessageList}!=null">
+			<div style="display:none" th:each="lendMessage:${application.lendMessageList}">
+				<div th:value="${lendMessage.userName}">
+					<div th:if="${lendMessage.userName}==${#httpServletRequest.remoteUser}">
+						<div th:each="messageList:${lendMessage.messageList}">
+							<div th:each="message,messageStat:${messageList}">
+								<input type="text" id="message" th:value="${message}" /> <input
+									type="hidden" id="index" th:value="${messageStat.index}" />
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

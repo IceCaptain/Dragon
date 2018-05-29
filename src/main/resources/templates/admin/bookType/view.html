@@ -1,0 +1,65 @@
+<meta charset="UTF-8"></meta>
+	<div id="b">
+		<div class="row">
+			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<div class="row">
+					<div class="col-md-12">
+					<form action="/admin/bookType/save" method="post" onSubmit="return checkBookTypeForm()">
+						<div class="row">
+							<div class="messageEdit">
+								<a href="javascript:bookTypeEdit()">编辑资料</a>
+							</div>
+						</div>
+						<div class="row">
+							<div class="message_info" align="center">
+								<table>
+									<tr>
+										<td><label>类&nbsp;别&nbsp;名&nbsp;称：</label></td>
+										<td>
+											<div id="showoName" th:text="${bookType.name }"></div>
+											<div id="editName" style="display: none">
+												<input type="text" class="form-control" id="name" name="name" th:value="${bookType.name }"/>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td><label>排&nbsp;序&nbsp;序&nbsp;号</label></td>
+										<td>
+											<div id="showoOrderNo" th:text="${bookType.orderNo }"></div>
+											<div id="editOrderNo" style="display: none">
+												<input type="text" class="form-control" id="orderNo" name="orderNo" th:value="${bookType.orderNo }"/>
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td><label>图&nbsp;书&nbsp;数&nbsp;量：</label></td>
+										<td>
+											<font th:text="${bookType.bookCount}" color="blue"></font>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<input type="hidden" name="id" th:value="${bookType.id}"/>
+										</td>
+										<td>
+											<font id="error" color="red" size="2%"></font>
+										</td>
+									</tr>
+								</table>
+								
+							</div>
+						</div>
+						<div class="row">
+							<div id="bookTypeButton" align="center">
+								<button class="btn btn-primary btn-primary" id="save" type="submit" disabled="disabled">保存</button>
+								<button class="btn btn-primary btn-primary" type="button" onClick="javascript:history.back()">返回</button>
+							</div>
+						</div>
+					</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4"></div>
+		</div>
+	</div>

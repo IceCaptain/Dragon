@@ -1,0 +1,180 @@
+@CHARSET "UTF-8";
+body{
+	padding-top:10px;
+	padding-bottom:40px;
+}
+
+header{
+	float:right;
+	margin-right:10px;
+}
+
+.data_list{
+	border: 1px solid #E5E5E5;
+	padding: 10px;
+	background-color: #FDFDFD;
+	margin-top: 0px;
+	margin-bottom: 10px;
+}
+
+.data_list .data_list_title{
+	font-size: 15px;
+	font-weight: bold;
+	
+	border-bottom: 1px solid #E5E5E5;
+	padding-bottom: 10px;
+	padding-top: 5px;
+}
+
+.data_list .data_list_title img{
+	margin-top: 1px;
+	vertical-align: top;
+}
+
+.data_list .datas{
+	padding: 5px;
+}
+
+.data_list .datas ul {
+	list-style-type: none;
+	padding-left: 15px;
+}
+
+.data_list .datas ul li {
+	margin-top: 10px;
+}
+
+.data_list .imageDatas{
+	height: 800px;
+}
+
+.data_list .rImageDatas{
+	height: 300px;
+}
+
+.data_list .lImageDatas{
+/* 	height: 1300px; */
+}
+
+.data_list .datas .imageUl li {
+	float: left;
+	margin-right: 20px;
+}
+
+.data_list .rImageDatas .imageUl li {
+	float: left;
+	margin-right: 50px; 
+}
+
+.data_list .datas .imageUl .imageLi {
+	height: 250px;
+}
+
+.data_list .datas .imageUl .imageLi p{
+	overflow: hidden;
+	text-align: center;
+	padding-top: 4px;
+}
+
+.data_list .data_list_title .datas{
+	padding: 5px;
+}
+
+.data_list .datas .indexBook{
+	width: 140px;
+	height: 198px;
+}
+
+.data_list .rImageDatas .indexBook{
+	width: 170px;
+	height: 240px;
+}
+
+
+.book_image{
+	margin-right:10;
+	margin-top:30px;
+}
+
+.book_info{
+	margin-left:30;
+	margin-top:25px;
+} 
+
+.data_list .book_title{
+	margin-top:20px;
+	text-align: center;
+}
+
+.data_list .notice_title{
+	margin-top:20px;
+	text-align: center;
+}
+
+.data_list .book_publishDate{
+	text-align: center;
+}
+
+.data_list .book_content{	
+	margin-top:20px;
+	padding:40px;
+} 
+
+.content{
+	letter-spacing: 3px;
+	line-height: 180%;
+	 
+}
+body{
+/* 	font-family: "黑体"; */
+}
+
+.data_list .notice_content{	
+	margin-top:30px;
+	padding:40px;
+}
+
+.data_list .notice_title font{
+	float:right;
+	margin-right:50px;
+}
+
+.data_list .book_lastAndNextPage{
+	border-top:1px dotted black;
+}
+
+.data_list .book_type{
+	border-top:1px dotted black;
+	padding: 10px;
+}
+
+.book_info table tr td{
+	vertical-align: top;
+	padding:8px;
+}
+
+.search ul li{
+	border-bottom:1px dotted grey;
+	padding-bottom:20px;
+	margin-bottom:30px;
+}
+
+#name{
+	text-align: center;
+}
+
+.name{
+	font-size: 140%;
+}
+
+#info{
+	text-align: center;
+}
+
+#info span{
+	margin:3%;
+}
+
+#contenr{
+	margin-top:4%;
+}

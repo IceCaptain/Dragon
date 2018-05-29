@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>TopGun 用户注册</title>
+<link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.min.css"/>
+<link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.min.css"/>
+<link rel="stylesheet" href="/static/css/register.css"/>
+<script src="/static/bootstrap3/js/jquery-1.11.2.min.js"></script>
+<script src="/static/bootstrap3/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+/*<![CDATA[*/
+	window.onload = function() {
+		document.getElementById("userName").focus();
+	}
+	
+	function mySubmit(){
+		var userName=$("#userName").val();
+		userNameValidation();
+		if(trueNameValidation()&passwordValidation()&password_2Validation()&emailValidation()){
+			$("#submit").attr("disabled","true");
+			var userName=$("#userName").val();
+			var trueName=$("#trueName").val();
+			var password=$("#password").val();
+			var email=$("#email").val();
+			$.post("/user/register",
+				{
+					userName:userName,
+					trueName:trueName,
+					password:password,
+					email:email
+				},
+				function(result){
+					if(result.success){
+						alert(result.success);
+						window.location.href="/login";
+					}else{
+// 						alert(result.error);
+					}
+				},"json"); 
+		}else{
+			$("#submit").attr("disabled","true"); 
+		}
+	}
+	
+	function userNameValidation(){
+		var userName=$("#userName").val();
+		if(userName!=null&&userName.trim().length>=6&&userName.trim().length<=15){
+			$(".userName").html("<img alt='正在加载' src='/static/icon/load.png'/>");
+			$("#submit").removeAttr("disabled");
+			$.post("/user/userNameValidation",{userName:userName},function(result){
+				if(result.valid){
+					$(".userName").html("<img alt='用户名可使用' src='/static/icon/correct.png'/>");
+					$("#userNameError").html("");
+					$("#submit").removeAttr("disabled");
+				}else{
+					$(".userName").html("<img alt='用户名已注册' src='/static/icon/error.png'/>");
+					$("#userNameError").html("用户名已注册");
+					$("#submit").attr("disabled","true");
+				}
+			},"json"); 
+		} else{
+			$(".userName").html("<img alt='用户名长度必须为6-15之间' src='/static/icon/error.png'/>");
+			$("#userNameError").html("用户名长度必须为6-15之间");
+			$("#submit").attr("disabled","true");
+			return false;
+		}
+	}
+	
+	function trueNameValidation(){
+		var trueName=$("#trueName").val();
+		if(trueName!=null&&trueName.trim().length!=0){
+			$(".trueName").html("<img alt='真实姓名可使用' src='/static/icon/correct.png'/>");
+			$("#trueNameError").html("");
+			$("#submit").removeAttr("disabled");
+			return true;
+		} else{
+			$(".trueName").html("<img alt='真实姓名不能为空' src='/static/icon/error.png'/>");
+			$("#trueNameError").html("真实姓名不能为空");
+			$("#submit").attr("disabled","true");
+ 			return false;
+		}
+	}
+	
+	function passwordValidation(){
+		var password=$("#password").val();
+		if(password!=null&&password.trim().length>=6&&password.trim().length<=20){
+			$(".password").html("<img alt='密码可使用' src='/static/icon/correct.png'/>");
+			$("#passwordError").html("");
+			$("#submit").removeAttr("disabled");
+			var password_2=$("#password_2").val();
+			if(password_2!=null&&password_2.trim().length!=0&&password!=password_2){
+				$(".password_2").html("<img alt='两次密码不相同' src='/static/icon/error.png'/>");
+				$("#password_2Error").html("两次密码不相同");
+				$("#submit").attr("disabled","true");
+				return false;
+			} else if(password==password_2){
+				$(".password_2").html("<img alt='确认密码可使用' src='/static/icon/correct.png'/>");
+				$("#password_2Error").html("");
+				$("#submit").removeAttr("disabled");
+				return true;
+			}else{
+				$(".password_2").html("<img alt='两次密码不相同' src='/static/icon/error.png'/>");
+				$("#password_2Error").html("两次密码不相同");
+				$("#submit").attr("disabled","true");
+				return false;
+			}
+		} else{
+			$(".password").html("<img alt='密码长度必须在6-20之间' src='/static/icon/error.png'/>");
+			$("#passwordError").html("密码长度必须在6-20之间");
+			$("#submit").attr("disabled","true");
+			return false;
+		}
+	}
+	
+	function password_2Validation(){
+		var password=$("#password").val();
+		var password_2=$("#password_2").val();
+		if(password!=null&&password_2!=null&&password.trim().length>0&&password_2.trim().length>0&&password==password_2){
+			$(".password_2").html("<img alt='确认密码可使用' src='/static/icon/correct.png'/>");
+			$("#password_2Error").html("");
+			$("#submit").removeAttr("disabled");
+			return true;
+		} else{
+			$(".password_2").html("<img alt='两次密码不相同' src='/static/icon/error.png'/>");
+			$("#password_2Error").html("两次密码不相同");
+			$("#submit").attr("disabled","true");
+			return false;
+		}
+	}
+	
+	function emailValidation(){
+		var email=$("#email").val();
+		var reg = new RegExp("^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$");
+		if(email!=null&&reg.test(email)){
+			$(".email").html("<img alt='邮箱可使用' src='/static/icon/correct.png'/>");
+			$("#emailError").html("");
+			$("#submit").removeAttr("disabled");
+			return true;
+		}
+		else{
+			$(".email").html("<img alt='两次密码不相同' src='/static/icon/error.png'/>");
+			$("#emailError").html("邮箱格式不正确");
+			$("#submit").attr("disabled","true");
+			return false;
+		}
+	}
+
+/*]]>*/
+</script>
+</head>
+<body>
+<div class="container">
+		<div class="row" id="input">
+			<div class="col-md-3 col-xs-2"></div>
+			<div class="col-md-6 col-xs-8">
+				<div id="content">
+					<div class="title">
+						<h2>用户注册</h2>
+					</div>
+					<div class="input-group form-group"> 
+						<span class="input-group-addon" id="basic-addon1">
+							<span class="glyphicon glyphicon-user"></span>
+						</span> 
+						<input type="text" class="form-control" id="userName" name="userName" placeholder="用户名" oninput="userNameValidation()" required="required"/> 
+						<div class="icon userName">
+						</div>
+					</div> 
+					<div class="message">
+						<font id="userNameError" color="red"></font>
+					</div>
+					<div class="input-group form-group"> 
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-asterisk"></span>
+						</span> 
+						<input type="text" class="form-control" id="trueName" name="trueName" placeholder="真实姓名" oninput="trueNameValidation()"/>
+						<div class="icon trueName">
+						</div>
+					</div>
+					<div class="message">
+						<font id="trueNameError" color="red"></font>
+					</div>
+					<div class="input-group form-group">
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-lock"></span>
+						</span>
+						<input type="password" class="form-control" id="password" name="password" placeholder="密码" oninput="passwordValidation()"/>
+						<div class="icon password">
+						</div>
+					</div>
+					<div class="message">
+						<font id="passwordError" color="red"></font>
+					</div>
+					<div class="input-group form-group">
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-check"></span>
+						</span> 
+						<input type="password" class="form-control" id="password_2" name="password_2" placeholder="确认密码" oninput="password_2Validation()"/>
+						<div class="icon password_2">
+						</div>
+					</div>
+					<div class="message">
+						<font id="password_2Error" color="red"></font>
+					</div>
+					<div class="input-group form-group">
+						<span class="input-group-addon">
+							<span class="glyphicon glyphicon-envelope"></span>
+						</span> 
+						<input type="email" class="form-control" id="email" name="email" placeholder="电子邮箱" oninput="emailValidation()"/>
+						<div class="icon email">
+						</div>
+					</div>
+					<div class="message">
+						<font id="emailError" color="red"></font>
+					</div>
+					<div class="button">
+						<button type="button" class="btn btn-primary form-control" id="submit" onClick="mySubmit()">注册</button>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 col-xs-2"></div>
+		</div>
+	</div>
+</body>
+</html>

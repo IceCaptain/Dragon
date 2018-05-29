@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title th:text="${title}+'-Topgun个人信息管理'">Insert title here</title>
+<link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.min.css" />
+<link type="text/css" rel="stylesheet" href="/static/css/style.css" />
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/menu.js"></script>
+<script type="text/javascript" src="/static/js/jq_dialog.js"></script>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+		
+	function userMessageEdit(){
+		$("#showTrueName").css("display","none");
+		$("#editTrueName").css("display","block");
+		$("#showEmail").css("display","none");
+		$("#editEmail").css("display","block");
+		$("#save").removeAttr("disabled");
+	}
+	
+	function checkMessageForm(){
+		var trueName=$("#trueName").val();
+		var email=$("#email").val();
+		if (trueName == null || trueName == "") {
+			$("#error").html("真实姓名不能为空！");
+			return false;
+		} else if(email == null || email == ""){
+			$("#error").html("邮箱不能为空！");
+			return false;
+		}else {
+			$("#error").html("");
+			return true;
+		}
+	}
+	
+	function checkModifyPwd(){
+		var userName=$("#userName").val();
+		var oldPassword=$("#oldPassword").val();
+		var newPassword=$("#newPassword").val();
+		var newPassword2=$("#newPassword2").val();
+		if (oldPassword == null || oldPassword == "") {
+			$("#error").html("原密码不能为空！");
+			return;
+		}else if(newPassword == null || newPassword == ""){
+			$("#error").html("新密码不能为空！");
+			return;
+		}else if(newPassword2 == null || newPassword2 == ""){
+			$("#error").html("确认密码不能为空！");
+			return;
+		}else if(newPassword!=newPassword2){
+			$("#error").html("两次密码不相同！");
+			return;
+		}else{
+			$.post("/user/modifyPwd",{userName:userName,oldPassword:oldPassword,newPassword:newPassword},function(result){
+				if(result.success){
+					$("#oldPassword").val("");
+					$("#newPassword").val("");
+					$("#newPassword2").val("");
+					alert(result.success);
+					$("#error").html("");
+				}else{
+					$("#error").html(result.error);
+				}
+			},"json");
+		}
+	}
+	
+	function bookReservationCancel(bookId){
+		var userName=$("#userName").val();
+		if (confirm("取消将重新排队预约此书，您确定要取消吗？")) {
+			$.post("/user/reservationCancel",{id:bookId,userName:userName},function(result){
+				if(result.success){
+					alert(result.success);
+					window.location.href="/user/reservation/1?userName="+userName;
+				}
+			},"json");			
+		}
+	}
+		
+	/*]]>*/
+</script>
+</head>
+<body>
+	<div class="top"></div>
+	<div id="header">
+		<div th:include="/user/common/head::#h"></div>
+	</div>
+	<div id="content">
+		<div th:include="/user/common/menu::#m"></div>
+		<div class="m-right">
+			<div class="right-nav">
+				<div th:text="'当前位置：'+${menuTitle}"></div>
+			</div>
+			<div class="main">
+				<div th:include="${mainPage}::${mainPageKey}"></div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom"></div>
+	<div th:include="/user/common/foot::#f"></div>
+	<script>navList(12);</script>
+</body>
+</html>

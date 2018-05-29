@@ -1,0 +1,18 @@
+<meta charset="UTF-8"></meta>
+<div id="n">
+	<div class="data_list">
+		<div class="data_list_title">
+			<img src="/static/images/view_icon.png"/>
+			通知详细信息
+		</div>
+		<div class="notice_title">
+			<h3>
+				<strong th:text="'《'+${notice.title}+'》'"></strong>
+			</h3>
+			<font th:text="${#dates.format(notice.releaseDate,'yyyy-MM-dd HH:mm')}" color="blue" size="3"></font>
+		</div>
+		<div class="notice_content">
+			<div th:utext="${notice.content}"></div>
+		</div>
+	</div>
+</div>

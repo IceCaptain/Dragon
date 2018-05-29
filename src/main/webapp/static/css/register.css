@@ -1,0 +1,110 @@
+@CHARSET "UTF-8";
+body{
+/* 	padding-top:20px; */
+	padding-bottom:10px;
+	background-color:#D6D6FF;
+	background-image: url("/static/img/register.jpg");
+	background-repeat: no-repeat;
+	background-size: 100% 100%; 
+	opacity: 0.9; 
+}
+
+.container{
+/* 	border: 1px solid #E5E5E5; */
+/* 	border-radius:0 0 10px 10px; */
+	padding: 10px;
+	background-color:#5B6771;
+/* 	background-image: url("/static/images/register.jpg"); */
+/* 	background-repeat: no-repeat; */
+/* 	background-size: 100% 100%; */
+/* 	background-color: #FDFDFD; */
+	opacity: 0.9; 
+	height:740px;
+}
+
+h2{ 
+	color: #FFFFFF;
+	font-weight: 600; 
+	font-size: 25px;
+	letter-spacing: 15px;
+	vertical-align: center;
+	margin-top:0px;
+}
+
+.input-group-addon{
+	background-color: #0096E6;
+}
+
+.glyphicon{
+	color: #FFFFFF;
+}
+
+.input-group{
+	margin-top:17px; 
+	padding-left:10%;
+}
+
+.input-group .form-control{
+	width:88%;  
+}
+
+.button .form-control{
+	width:90%;
+}
+
+.form-control{
+	height: 40px;
+}
+
+.button{
+	margin-top:17px;
+	padding-left:9%;
+}
+
+#submit{
+}  
+
+.icon{
+	float:left;
+	margin-left:7px; 
+	vertical-align: center;
+}
+
+.icon img{
+	height: 18px; 
+	margin-top:10px;
+	color: green;
+}
+
+#content{
+	width:80%;
+	margin:10% auto;
+	background-color: #292D33; 
+	padding:30px;
+	opacity:1;
+	border-radius: 5px;
+}
+
+.title{
+	width:80%;
+	margin:0 auto;
+	text-align: center;
+	margin-top:40px;
+	margin-bottom:30px;
+}
+
+.message{
+	padding-left:18%;
+}
+
+
+.message font{
+	padding-left:15px;
+	height:1px;
+	display: block; 
+}
+
+
+#submit:hover{
+	background-color: #2D78F4;
+}

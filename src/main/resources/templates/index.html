@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title th:text="${title}+'-Topgun团队'">Insert title here</title>
+<link rel="stylesheet" href="/static/bootstrap3/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/static/bootstrap3/css/bootstrap-theme.min.css" />
+<link rel="stylesheet" href="/static/css/book.css" />
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/bootstrap3/js/bootstrap.min.js"></script>
+<script th:inline="javascript">
+	/*<![CDATA[*/  
+	
+	window.onload=function(){
+		var error=[[${error}]];
+		if(error!=null){
+			alert(error);
+		}
+		var message=$("#message").val();
+		if(message!=null&&message!=''){
+			alert(message);
+			var userName=$("#userName").val();
+			var index=$("#index").val();
+			window.location.href="/book/removeLendMessage?userName="+userName+"&index="+index;
+		}
+		
+	}
+	
+	function bookLend(bookId){
+		var userName=$("#userName").val();
+		if(confirm("您确定要借阅这本书吗？")){
+			$.post("/book/lend",{id:bookId,userName:userName},function(result){
+				if(result.success){
+					alert(result.success);
+					window.location.href = "/book/"+bookId;
+// 					window.location.href="/book/lendTimer/"+result.id;
+				}else{
+					alert(result.error);
+				}
+			},"json");
+		}
+	}
+	
+	function bookReserve(bookId){
+		var userName=$("#userName").val();
+		if(confirm("您确定要预约这本书吗？")){
+			$.post("/book/reserve",{id:bookId,userName:userName},function(result){
+				if(result.success){
+					alert(result.success);
+					window.location.href="/book/"+bookId;
+				}else{
+					if(result.lendAble){
+						alert(result.lendAble);
+						window.location.href="/book/"+bookId;
+					}else{
+						alert(result.error);
+					}
+				}
+			},"json");
+		}
+	}
+	
+	function checkSearchForm(){
+		var q=$("#q").val();
+		if(q==null || q==""){
+			alert("请输入搜索关键字！");
+			return false;
+		}else{
+			return true;
+		}
+	}
+	
+	function logout(){
+		if (confirm("您确定要退出吗？")) {
+			window.location.href="/logout";
+		}
+	}
+	
+	/*]]>*/  
+</script>
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div th:include="/common/head::#h"></div>
+		</div>
+
+		<div class="row">
+			<div th:include="/common/menu::#m"></div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-8">
+				<div th:include="${mainPage}::${mainPageKey}"></div>
+			</div>
+
+			<div class="col-md-4">
+				<div class="data_list">
+					<div class="data_list_title">
+						<img src="/static/images/hot_icon.png" /> 最新通知
+					</div>
+					<div class="datas">
+						<ul>
+							<li th:each="newestNoice:${application.newestNoticeList}"><span><a
+									th:href="'/notice/'+${newestNoice.id}"
+									th:title="${newestNoice.title}" th:text="${newestNoice.title}"></a></span></li>
+						</ul>
+					</div>
+				</div>
+
+				<div class="data_list">
+					<div class="data_list_title">
+						<img src="/static/images/byType_icon.png" /> 图书类别
+					</div>
+					<div class="datas">
+						<ul>
+							<li th:each="bookType:${application.bookTypeList}"><span><a
+									th:href="'/'+${bookType.id}+'/1'"
+									th:title="${bookType.name}"
+									th:text="${bookType.name+'('+bookType.bookCount+')'}"></a></span></li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="row">
+			<div th:include="/common/foot::#f"></div>
+		</div>
+	</div>
+</body>
+</html>
