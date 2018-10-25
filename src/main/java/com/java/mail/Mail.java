@@ -18,8 +18,8 @@ import javax.mail.internet.MimeUtility;
  */
 public abstract class Mail implements Runnable {
 	
-	private static final String from = "xinyao_Ice@163.com";// 发件人电子邮箱
-	private static final String license="zxy3878928";//发件人授权码
+	private static final String from = "xxxxxxxx";// 发件人电子邮箱
+	private static final String license="xxx";//发件人授权码
 	private static final String host = "smtp.163.com"; // 指定发送邮件的主机smtp.qq.com(QQ)|smtp.163.com/pop.163.com/imap.163.com(网易)
 	private static final String address="http://topgun.xicp.io";//指定发送邮件的服务器
 	
